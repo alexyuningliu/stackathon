@@ -6,30 +6,36 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<style>
 		body {
-			margin-top:2%;
-			text-align:center;
+			margin:0;
+			padding:0;
 			color:#fff;
-			background-color:#122836;
+			background-color:#000000;
 		}
 		video { 
 			position:absolute;
 			visibility:hidden;
 		}
-		canvas { border:5px solid #fff;}
 		.hidden {visibility: hidden;}
+		#z1 {
+			position: relative;
+			z-index:1;
+		}
 	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 	<script src='objectdetect.js'></script>
 	<script src='objectdetect.handfist.js'></script>
 	<script src='app.js'></script>
+	<script src='racer.js'></script>
 </head>
 <body>
-	<h1>Driving Game</h1>
-	<video id='v'></video>	
-	<canvas id='cLeft'></canvas>
-	<canvas id='c'></canvas>
-	<canvas id='cRight'></canvas>
-
-	<canvas id='cLeftHidden' class="hidden"></canvas>
-	<canvas id='cRightHidden' class="hidden"></canvas>
+	<canvas id='racer' style="position: absolute;"></canvas>
+	<div id='z1'>
+		<video id='v'></video>	
+		<canvas id='cLeft' style='float:left;'></canvas>
+<!-- 		<canvas id='c'></canvas> -->
+		<canvas id='cRight' style='float:right;'></canvas>
+		<canvas id='cLeftHidden' class="hidden"></canvas>
+		<canvas id='cRightHidden' class="hidden"></canvas>
+	</div>
 </body>
 </html>

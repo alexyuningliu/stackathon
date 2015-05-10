@@ -1,10 +1,10 @@
 window.addEventListener('DOMContentLoaded', function() {
 	var isStreaming = false,
 		v = document.getElementById('v'),
-		c = document.getElementById('c'),
-		con = c.getContext('2d');
+		// c = document.getElementById('c'),
+		// con = c.getContext('2d');
 		w = 600, 
-		h = 420,
+		h = 420
 
 	// Create an averaging function on arrays
 
@@ -61,13 +61,13 @@ window.addEventListener('DOMContentLoaded', function() {
 	// Wait until the video stream can play
 	v.addEventListener('canplay', function(e) {
 	    if (!isStreaming) {
-	    	// videoWidth isn't always set correctly in all browsers
-	    	if (v.videoWidth > 0) h = v.videoHeight / (v.videoWidth / w);
-			c.setAttribute('width', w);
-			c.setAttribute('height', h);
-			// Reverse the canvas image
-			con.translate(w, 0);
-			con.scale(-1, 1);
+	  //   	// videoWidth isn't always set correctly in all browsers
+	  //   	if (v.videoWidth > 0) h = v.videoHeight / (v.videoWidth / w);
+			// c.setAttribute('width', w);
+			// c.setAttribute('height', h);
+			// // Reverse the canvas image
+			// con.translate(w, 0);
+			// con.scale(-1, 1);
 
 			// Repeat for unmirrored, hidden cLeft and cRight
 			cRightHidden.setAttribute('width', w/2);
@@ -119,8 +119,8 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (v.paused || v.ended) return;
 			console.log("New frame!");
 
-			con.fillRect(0, 0, w, h);
-			con.drawImage(v, 0, 0, w, h);
+			// con.fillRect(0, 0, w, h);
+			// con.drawImage(v, 0, 0, w, h);
 
 			// Draw mirrored cRight and cLeft
 			conRight.fillRect(0, 0, w/2, h);
