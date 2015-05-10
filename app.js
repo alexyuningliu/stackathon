@@ -6,6 +6,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		w = 600, 
 		h = 420,
 
+	// Set up context for right and left sides, accordingly
+		cRight = document.getElementById('cRight'),
+		conRight = cRight.getContext('2d'),
+		cLeft = document.getElementById('cLeft'),
+		conLeft = cLeft.getContext('2d')
 	// Cross browser
 	navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 	if (navigator.getUserMedia) {
@@ -43,7 +48,21 @@ window.addEventListener('DOMContentLoaded', function() {
 			// Reverse the canvas image
 			con.translate(w, 0);
 			con.scale(-1, 1);
+
+			//Repeat for cRight
+			cRight.setAttribute('width', w/2);
+			cRight.setAttribute('height', h);
+			conRight.translate(w/2, 0);
+			conRight.scale(-1, 1);
+
+			//Repeat for cLeft
+			cLeft.setAttribute('width', w/2);
+			cLeft.setAttribute('height', h);
+			conLeft.translate(w/2, 0);
+			conLeft.scale(-1, 1);
+
 	      	isStreaming = true;
+
 	    }
 	}, false);
 
@@ -63,6 +82,14 @@ window.addEventListener('DOMContentLoaded', function() {
 			if (v.paused || v.ended) return;
 			con.fillRect(0, 0, w, h);
 			con.drawImage(v, 0, 0, w, h);
+
+			// Draw cRight
+			conRight.fillRect(0, 0, w/2, h);
+			conRight.drawImage(v, 0, 0, w/2, h, 0, 0, w/2, h);
+
+			// Draw cLeft
+			conLeft.fillRect(0, 0, w/2, h);
+			conLeft.drawImage(v, 0+w/2, 0, w/2, h, 0, 0, w/2, h);
 
 			console.log("New set of coordinates!");
 
