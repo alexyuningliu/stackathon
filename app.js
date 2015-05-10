@@ -79,10 +79,10 @@ function video () {
 					coord[2] *= v.videoWidth / detector.canvas.width;
 					coord[3] *= v.videoHeight / detector.canvas.height;
 				
-					console.log("coord[0]", coord[1]);
-					console.log("coord[1]", coord[2]);
-					console.log("coord[2]", coord[3]);
-					console.log("coord[3]", coord[4]);
+					console.log("coord[0]", coord[0]);
+					console.log("coord[1]", coord[1]);
+					console.log("coord[2]", coord[2]);
+					console.log("coord[3]", coord[3]);
 
 					/* Find coordinates with maximum confidence: */
 					var coord = coords[0];
