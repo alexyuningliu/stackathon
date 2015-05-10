@@ -698,7 +698,7 @@ var objectdetect = (function() {
 		 * 
 		 * @return Grouped rectangles
 		 */
-		detector.prototype.detect = function(image, group, stepSize) {
+		detector.prototype.detectRight = function(image, group, stepSize) {
 			if (!stepSize) stepSize = 1;
 			
 			var width = this.canvas.width;

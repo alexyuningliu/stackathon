@@ -6,7 +6,13 @@ window.addEventListener('DOMContentLoaded', function() {
 		w = 600, 
 		h = 420,
 
-	// Set up context for right and left sides, accordingly
+	// Set up hidden context for un-mirrored right-and-left side videos to feed in
+		cRightHidden = document.getElementById('cRightHidden'),
+		conRightHidden = cRightHidden.getContext('2d'),
+		cLeftHidden = document.getElementById('cLeftHidden'),
+		conLeftHidden = cLeftHidden.getContext('2d'),
+
+	// Set up context for mirrored right and left side videos, accordingly
 		cRight = document.getElementById('cRight'),
 		conRight = cRight.getContext('2d'),
 		cLeft = document.getElementById('cLeft'),
@@ -49,17 +55,22 @@ window.addEventListener('DOMContentLoaded', function() {
 			con.translate(w, 0);
 			con.scale(-1, 1);
 
-			//Repeat for cRight
+			// Repeat for unmirrored, hidden cLeft and cRight
+			cRightHidden.setAttribute('width', w/2);
+			cRightHidden.setAttribute('height', h);
+			cLeftHidden.setAttribute('width', w/2);
+			cLeftHidden.setAttribute('height', h);
+
+			// Repeat for mirrored cRight and cLeft
 			cRight.setAttribute('width', w/2);
 			cRight.setAttribute('height', h);
 			conRight.translate(w/2, 0);
 			conRight.scale(-1, 1);
-
-			//Repeat for cLeft
 			cLeft.setAttribute('width', w/2);
 			cLeft.setAttribute('height', h);
 			conLeft.translate(w/2, 0);
 			conLeft.scale(-1, 1);
+
 
 	      	isStreaming = true;
 
@@ -83,25 +94,31 @@ window.addEventListener('DOMContentLoaded', function() {
 			con.fillRect(0, 0, w, h);
 			con.drawImage(v, 0, 0, w, h);
 
-			// Draw cRight
+			// Draw mirrored cRight and cLeft
 			conRight.fillRect(0, 0, w/2, h);
 			conRight.drawImage(v, 0, 0, w/2, h, 0, 0, w/2, h);
-
-			// Draw cLeft
 			conLeft.fillRect(0, 0, w/2, h);
 			conLeft.drawImage(v, 0+w/2, 0, w/2, h, 0, 0, w/2, h);
 
+			// Draw unmirrored cRightHidden and cLeftHidden
+			conRightHidden.fillRect(0, 0, w/2, h);
+			conRightHidden.drawImage(v, 0, 0, w/2, h, 0, 0, w/2, h);
+			conLeftHidden.fillRect(0, 0, w/2, h);
+			conLeftHidden.drawImage(v, 0+w/2, 0, w/2, h, 0, 0, w/2, h);
+
 			console.log("New frame!");
 
-			var coords = detector.detect(cRight, 1);
+			//Detect right hand
+
+			var coords = detector.detectRight(cRightHidden, 1);
 			if (coords[0]) {
 				var coord = coords[0];
 				
 				/* Rescale coordinates from detector to video coordinate space: */
-				coord[0] *= cRight.width / detector.canvas.width;
-				coord[1] *= cRight.height / detector.canvas.height;
-				coord[2] *= cRight.width / detector.canvas.width;
-				coord[3] *= cRight.height / detector.canvas.height;
+				coord[0] *= cRightHidden.width / detector.canvas.width;
+				coord[1] *= cRightHidden.height / detector.canvas.height;
+				coord[2] *= cRightHidden.width / detector.canvas.width;
+				coord[3] *= cRightHidden.height / detector.canvas.height;
 			
 				console.log("RIGHT HAND coordinates are ", Math.floor(coord[0]), ", ", Math.floor(coord[1]));
 
@@ -114,13 +131,17 @@ window.addEventListener('DOMContentLoaded', function() {
 				conRight.lineWidth = '2';
 				conRight.fillStyle = 'rgba(0, 255, 255, 0.5)';
 				conRight.fillRect(
-					coord[0] / cRight.width * cRight.clientWidth,
-					coord[1] / cRight.height * cRight.clientHeight,
-					coord[2] / cRight.width * cRight.clientWidth,
-					coord[3] / cRight.height * cRight.clientHeight);
+					coord[0] / cRightHidden.width * cRight.clientWidth,
+					coord[1] / cRightHidden.height * cRight.clientHeight,
+					coord[2] / cRightHidden.width * cRight.clientWidth,
+					coord[3] / cRightHidden.height * cRight.clientHeight);
 				conRight.stroke();
 					
 			}
+
+			//Detect left hand
+
+
 
 		}, 500);
 

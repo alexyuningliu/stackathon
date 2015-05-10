@@ -15,7 +15,8 @@
 			position:absolute;
 			visibility:hidden;
 		}
-		canvas { border:8px solid #fff;}
+		canvas { border:2px solid #fff;}
+		.hidden {visibility: hidden;}
 	</style>
 	<script src='objectdetect.js'></script>
 	<script src='objectdetect.handfist.js'></script>
@@ -27,5 +28,8 @@
 	<canvas id='cLeft'></canvas>
 	<canvas id='c'></canvas>
 	<canvas id='cRight'></canvas>
+
+	<canvas id='cLeftHidden' class="hidden"></canvas>
+	<canvas id='cRightHidden' class="hidden"></canvas>
 </body>
 </html>
