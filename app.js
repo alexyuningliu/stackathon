@@ -1,3 +1,7 @@
+// Expose turning variables to racer.js
+var turnLeft = false;
+var turnRight = false;
+
 window.addEventListener('DOMContentLoaded', function() {
 	var isStreaming = false,
 		v = document.getElementById('v'),
@@ -210,9 +214,22 @@ window.addEventListener('DOMContentLoaded', function() {
 			var yPositionArrayRightAverage = yPositionArrayRight.avg();
 			var yPositionArrayLeftAverage = yPositionArrayLeft.avg();
 
-			console.log("LEFT-RIGHT AVERAGE DIFFERENCE IS ", (yPositionArrayLeftAverage - yPositionArrayRightAverage));
+			var yPositionDifference = yPositionArrayLeftAverage - yPositionArrayRightAverage;
 
-		}, 1000);
+			console.log("LEFT-RIGHT AVERAGE DIFFERENCE IS ", (yPositionDifference));
+
+			if (yPositionDifference < -100) {
+				turnLeft = false;
+				turnRight = true;
+			} else if (yPositionDifference > 100) {
+				turnRight = false;
+				turnLeft = true;
+			} else {
+				turnLeft = false;
+				turnRight = false;
+			}
+
+		}, 100);
 
 	}, false);
 

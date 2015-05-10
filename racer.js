@@ -35,7 +35,7 @@ var game = (function(){
     
     var player = {
         position: 10,
-        speed: 0,
+        speed: 5,
         acceleration: 0.05,
         deceleration: 0.3,
         breaking: 0.6,
@@ -148,27 +148,27 @@ var game = (function(){
         // -- Update the car state --
         // --------------------------
         
-        if (Math.abs(lastDelta) > 130){
-            if (player.speed > 3) {
-                player.speed -= 0.2;
-            }
-        } else {
-            // read acceleration controls
-            if (keys[38]) { // 38 up
-                //player.position += 0.1;
-                player.speed += player.acceleration;
-            } else if (keys[40]) { // 40 down
-                player.speed -= player.breaking;
-            } else {
-                player.speed -= player.deceleration;
-            }
-        }
+        // if (Math.abs(lastDelta) > 130){
+        //     if (player.speed > 3) {
+        //         player.speed -= 0.2;
+        //     }
+        // } else {
+        //     // read acceleration controls
+        //     if (keys[38]) { // 38 up
+        //         //player.position += 0.1;
+        //         player.speed += player.acceleration;
+        //     } else if (keys[40]) { // 40 down
+        //         player.speed -= player.breaking;
+        //     } else {
+        //         player.speed -= player.deceleration;
+        //     }
+        // }
         player.speed = Math.max(player.speed, 0); //cannot go in reverse
         player.speed = Math.min(player.speed, player.maxSpeed); //maximum speed
         player.position += player.speed;
         
         // car turning
-        if (keys[37]) {
+        if (keys[37] || turnLeft) {
             // 37 left
             if(player.speed > 0){
                 player.posx -= player.turning;
@@ -178,7 +178,7 @@ var game = (function(){
                 x: 117,
                 y: 190
             };
-        } else if (keys[39]) {
+        } else if (keys[39] || turnRight) {
             // 39 right
             if(player.speed > 0){
                 player.posx += player.turning;
@@ -209,7 +209,7 @@ var game = (function(){
         if(absoluteIndex >= roadParam.length-render.depthOfField-1){
             clearInterval(gameInterval);
             drawString("You did it!", {x: 100, y: 20});
-            drawString("Press t to tweet your time.", {x: 30, y: 30});
+            // drawString("Press t to tweet your time.", {x: 30, y: 30});
             $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
         }
         
