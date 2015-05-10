@@ -6,6 +6,20 @@ window.addEventListener('DOMContentLoaded', function() {
 		w = 600, 
 		h = 420,
 
+	// Create an averaging function on arrays
+
+	Array.prototype.avg = function() {
+		var av = 0;
+		var cnt = 0;
+		var len = this.length;
+		for (var i = 0; i < len; i++) {
+			var e = +this[i];
+			if(!e && this[i] !== 0 && this[i] !== '0') e--;
+			if (this[i] == e) {av += e; cnt++;}
+		}
+		return av/cnt;
+	}
+
 	// Set up hidden context for un-mirrored right-and-left side videos to feed in
 		cRightHidden = document.getElementById('cRightHidden'),
 		conRightHidden = cRightHidden.getContext('2d'),
@@ -80,6 +94,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	// Wait for the video to start to play
 	v.addEventListener('play', function() {
 
+		// Set up the detectors
 		var detectorRight;
 		var detectorLeft;
 
@@ -95,6 +110,10 @@ window.addEventListener('DOMContentLoaded', function() {
 			detectorLeft = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
 		}
 		
+		// Set up arrays to hold y-position values for both right and left hands
+		var yPositionArrayRight = [0, 0, 0];
+		var yPositionArrayLeft = [0, 0, 0];
+
 		// Every 33 milliseconds copy the video image to the canvas
 		setInterval(function() {
 			if (v.paused || v.ended) return;
@@ -127,12 +146,16 @@ window.addEventListener('DOMContentLoaded', function() {
 				coordRight[2] *= cRightHidden.width / detectorRight.canvas.width;
 				coordRight[3] *= cRightHidden.height / detectorRight.canvas.height;
 			
-				console.log("RIGHT hand coordinates are ", Math.floor(coordRight[0]), ", ", Math.floor(coordRight[1]));
-
 				/* Find coordinates with maximum confidence: */
 				var coordRight = coordsRight[0];
 				for (var i = coordsRight.length - 1; i >= 0; --i)
 					if (coordsRight[i][4] > coordRight[4]) coordRight = coordsRight[i];
+
+				console.log("RIGHT hand coordinates are ", Math.floor(coordRight[0]), ", ", Math.floor(coordRight[1]));
+				// If found, push most recent right hand y-position to array
+
+				yPositionArrayRight.shift();
+				yPositionArrayRight.push(coordRight[1]);
 
 				conRight.beginPath();
 				conRight.lineWidth = '2';
@@ -158,12 +181,17 @@ window.addEventListener('DOMContentLoaded', function() {
 				coordLeft[2] *= cLeftHidden.width / detectorLeft.canvas.width;
 				coordLeft[3] *= cLeftHidden.height / detectorLeft.canvas.height;
 			
-				console.log("LEFT hand coordinates are ", Math.floor(coordLeft[0]), ", ", Math.floor(coordLeft[1]));
-
 				/* Find coordinates with maximum confidence: */
 				var coordLeft = coordsLeft[0];
 				for (var i = coordsLeft.length - 1; i >= 0; --i)
 					if (coordsLeft[i][4] > coordLeft[4]) coordLeft = coordsLeft[i];
+
+				console.log("LEFT hand coordinates are ", Math.floor(coordLeft[0]), ", ", Math.floor(coordLeft[1]));
+
+				// If found, push most recent right hand y-position to array
+
+				yPositionArrayLeft.shift();
+				yPositionArrayLeft.push(coordLeft[1]);
 
 				conLeft.beginPath();
 				conLeft.lineWidth = '2';
@@ -177,7 +205,14 @@ window.addEventListener('DOMContentLoaded', function() {
 					
 			}
 
-		}, 500);
+			// Average previous y-coordinates on left-and-right side at the end of each turn
+
+			var yPositionArrayRightAverage = yPositionArrayRight.avg();
+			var yPositionArrayLeftAverage = yPositionArrayLeft.avg();
+
+			console.log("LEFT-RIGHT AVERAGE DIFFERENCE IS ", (yPositionArrayLeftAverage - yPositionArrayRightAverage));
+
+		}, 1000);
 
 	}, false);
 
