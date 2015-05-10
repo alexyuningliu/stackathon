@@ -91,41 +91,38 @@ window.addEventListener('DOMContentLoaded', function() {
 			conLeft.fillRect(0, 0, w/2, h);
 			conLeft.drawImage(v, 0+w/2, 0, w/2, h, 0, 0, w/2, h);
 
-			console.log("New set of coordinates!");
+			console.log("New frame!");
 
-			var coords = detector.detect(v, 1);
+			var coords = detector.detect(cRight, 1);
 			if (coords[0]) {
 				var coord = coords[0];
 				
 				/* Rescale coordinates from detector to video coordinate space: */
-				coord[0] *= v.videoWidth / detector.canvas.width;
-				coord[1] *= v.videoHeight / detector.canvas.height;
-				coord[2] *= v.videoWidth / detector.canvas.width;
-				coord[3] *= v.videoHeight / detector.canvas.height;
+				coord[0] *= cRight.width / detector.canvas.width;
+				coord[1] *= cRight.height / detector.canvas.height;
+				coord[2] *= cRight.width / detector.canvas.width;
+				coord[3] *= cRight.height / detector.canvas.height;
 			
-				console.log("coord[0]", coord[0]);
-				console.log("coord[1]", coord[1]);
-				console.log("coord[2]", coord[2]);
-				console.log("coord[3]", coord[3]);
+				console.log("RIGHT HAND coordinates are ", Math.floor(coord[0]), ", ", Math.floor(coord[1]));
 
 				/* Find coordinates with maximum confidence: */
 				var coord = coords[0];
 				for (var i = coords.length - 1; i >= 0; --i)
 					if (coords[i][4] > coord[4]) coord = coords[i];
 
-				con.beginPath();
-					con.lineWidth = '2';
-					con.fillStyle = 'rgba(0, 255, 255, 0.5)';
-					con.fillRect(
-						coord[0] / v.videoWidth * c.clientWidth,
-						coord[1] / v.videoHeight * c.clientHeight,
-						coord[2] / v.videoWidth * c.clientWidth,
-						coord[3] / v.videoHeight * c.clientHeight);
-					con.stroke();
+				conRight.beginPath();
+				conRight.lineWidth = '2';
+				conRight.fillStyle = 'rgba(0, 255, 255, 0.5)';
+				conRight.fillRect(
+					coord[0] / cRight.width * cRight.clientWidth,
+					coord[1] / cRight.height * cRight.clientHeight,
+					coord[2] / cRight.width * cRight.clientWidth,
+					coord[3] / cRight.height * cRight.clientHeight);
+				conRight.stroke();
 					
 			}
 
-		}, 1000);
+		}, 500);
 
 	}, false);
 
