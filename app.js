@@ -80,17 +80,26 @@ window.addEventListener('DOMContentLoaded', function() {
 	// Wait for the video to start to play
 	v.addEventListener('play', function() {
 
-		var detector;
+		var detectorRight;
+		var detectorLeft;
 
-		if (!detector) {
+		if (!detectorRight) {
 			var width = 80;
 			var height = 80;
-			detector = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
+			detectorRight = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
+		}
+
+		if (!detectorLeft) {
+			var width = 80;
+			var height = 80;
+			detectorLeft = new objectdetect.detector(width, height, 1.1, objectdetect.handfist);
 		}
 		
 		// Every 33 milliseconds copy the video image to the canvas
 		setInterval(function() {
 			if (v.paused || v.ended) return;
+			console.log("New frame!");
+
 			con.fillRect(0, 0, w, h);
 			con.drawImage(v, 0, 0, w, h);
 
@@ -106,42 +115,67 @@ window.addEventListener('DOMContentLoaded', function() {
 			conLeftHidden.fillRect(0, 0, w/2, h);
 			conLeftHidden.drawImage(v, 0+w/2, 0, w/2, h, 0, 0, w/2, h);
 
-			console.log("New frame!");
+			// Detect right hand
 
-			//Detect right hand
-
-			var coords = detector.detectRight(cRightHidden, 1);
-			if (coords[0]) {
-				var coord = coords[0];
+			var coordsRight = detectorRight.detect(cRightHidden, 1);
+			if (coordsRight[0]) {
+				var coordRight = coordsRight[0];
 				
 				/* Rescale coordinates from detector to video coordinate space: */
-				coord[0] *= cRightHidden.width / detector.canvas.width;
-				coord[1] *= cRightHidden.height / detector.canvas.height;
-				coord[2] *= cRightHidden.width / detector.canvas.width;
-				coord[3] *= cRightHidden.height / detector.canvas.height;
+				coordRight[0] *= cRightHidden.width / detectorRight.canvas.width;
+				coordRight[1] *= cRightHidden.height / detectorRight.canvas.height;
+				coordRight[2] *= cRightHidden.width / detectorRight.canvas.width;
+				coordRight[3] *= cRightHidden.height / detectorRight.canvas.height;
 			
-				console.log("RIGHT HAND coordinates are ", Math.floor(coord[0]), ", ", Math.floor(coord[1]));
+				console.log("RIGHT hand coordinates are ", Math.floor(coordRight[0]), ", ", Math.floor(coordRight[1]));
 
 				/* Find coordinates with maximum confidence: */
-				var coord = coords[0];
-				for (var i = coords.length - 1; i >= 0; --i)
-					if (coords[i][4] > coord[4]) coord = coords[i];
+				var coordRight = coordsRight[0];
+				for (var i = coordsRight.length - 1; i >= 0; --i)
+					if (coordsRight[i][4] > coordRight[4]) coordRight = coordsRight[i];
 
 				conRight.beginPath();
 				conRight.lineWidth = '2';
 				conRight.fillStyle = 'rgba(0, 255, 255, 0.5)';
 				conRight.fillRect(
-					coord[0] / cRightHidden.width * cRight.clientWidth,
-					coord[1] / cRightHidden.height * cRight.clientHeight,
-					coord[2] / cRightHidden.width * cRight.clientWidth,
-					coord[3] / cRightHidden.height * cRight.clientHeight);
+					coordRight[0] / cRightHidden.width * cRight.clientWidth,
+					coordRight[1] / cRightHidden.height * cRight.clientHeight,
+					coordRight[2] / cRightHidden.width * cRight.clientWidth,
+					coordRight[3] / cRightHidden.height * cRight.clientHeight);
 				conRight.stroke();
 					
 			}
 
 			//Detect left hand
 
+			var coordsLeft = detectorLeft.detect(cLeftHidden, 1);
+			if (coordsLeft[0]) {
+				var coordLeft = coordsLeft[0];
+				
+				/* Rescale coordinates from detector to video coordinate space: */
+				coordLeft[0] *= cLeftHidden.width / detectorLeft.canvas.width;
+				coordLeft[1] *= cLeftHidden.height / detectorLeft.canvas.height;
+				coordLeft[2] *= cLeftHidden.width / detectorLeft.canvas.width;
+				coordLeft[3] *= cLeftHidden.height / detectorLeft.canvas.height;
+			
+				console.log("LEFT hand coordinates are ", Math.floor(coordLeft[0]), ", ", Math.floor(coordLeft[1]));
 
+				/* Find coordinates with maximum confidence: */
+				var coordLeft = coordsLeft[0];
+				for (var i = coordsLeft.length - 1; i >= 0; --i)
+					if (coordsLeft[i][4] > coordLeft[4]) coordLeft = coordsLeft[i];
+
+				conLeft.beginPath();
+				conLeft.lineWidth = '2';
+				conLeft.fillStyle = 'rgba(0, 255, 255, 0.5)';
+				conLeft.fillRect(
+					coordLeft[0] / cLeftHidden.width * cLeft.clientWidth,
+					coordLeft[1] / cLeftHidden.height * cLeft.clientHeight,
+					coordLeft[2] / cLeftHidden.width * cLeft.clientWidth,
+					coordLeft[3] / cLeftHidden.height * cLeft.clientHeight);
+				conLeft.stroke();
+					
+			}
 
 		}, 500);
 
