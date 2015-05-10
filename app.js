@@ -74,15 +74,31 @@ function video () {
 					var coord = coords[0];
 					
 					/* Rescale coordinates from detector to video coordinate space: */
-					coord[0] *= video.videoWidth / detector.canvas.width;
-					coord[1] *= video.videoHeight / detector.canvas.height;
-					coord[2] *= video.videoWidth / detector.canvas.width;
-					coord[3] *= video.videoHeight / detector.canvas.height;
+					coord[0] *= v.videoWidth / detector.canvas.width;
+					coord[1] *= v.videoHeight / detector.canvas.height;
+					coord[2] *= v.videoWidth / detector.canvas.width;
+					coord[3] *= v.videoHeight / detector.canvas.height;
+				
+					console.log("coord[0]", coord[1]);
+					console.log("coord[1]", coord[2]);
+					console.log("coord[2]", coord[3]);
+					console.log("coord[3]", coord[4]);
 
 					/* Find coordinates with maximum confidence: */
 					var coord = coords[0];
 					for (var i = coords.length - 1; i >= 0; --i)
 						if (coords[i][4] > coord[4]) coord = coords[i];
+
+					con.beginPath();
+						con.lineWidth = '2';
+						con.fillStyle = 'rgba(0, 255, 255, 0.5)';
+						con.fillRect(
+							coord[0] / v.videoWidth * c.clientWidth,
+							coord[1] / v.videoHeight * c.clientHeight,
+							coord[2] / v.videoWidth * c.clientWidth,
+							coord[3] / v.videoHeight * c.clientHeight);
+						con.stroke();
+						
 				}
 
 			}, 1000);
