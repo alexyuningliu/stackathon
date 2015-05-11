@@ -126,10 +126,11 @@ var game = (function(){
         context.drawImage(spritesheet,  357, 9, 115, 20, 100, 20, 115, 40);
         
         drawString("Instructions:",{x: 100, y: 90});
-        drawString("space to start, arrows to drive",{x: 30, y: 100});
+        drawString("space to start, hands to drive",{x: 30, y: 100});
         drawString("Credits:",{x: 120, y: 120});
-        drawString("code, art: Selim Arsever",{x: 55, y: 130});
-        drawString("font: spicypixel.net",{x: 70, y: 140});
+        drawString("mechanism: Alex Liu",{x: 70, y: 130});
+        drawString("game, art: Selim Arsever",{x: 55, y: 140});
+        drawString("font: spicypixel.net",{x: 70, y: 150});
         if(keys[32]){
             clearInterval(splashInterval);
             gameInterval = setInterval(renderGameFrame, 30);
@@ -390,9 +391,9 @@ var game = (function(){
             var scale = $(window).width() / render.width;
         }
         
-        var transform = "scale(" + scale + ")";
+        var transform = "scale(2)";
         $("#racer").css("MozTransform", transform).css("transform", transform).css("WebkitTransform", transform).css({
-            top: (scale - 1) * render.height / 2,
+            // top: (scale - 1) * render.height / 2,
             left: (scale - 1) * render.width / 2 + ($(window).width() - render.width * scale) / 2
         });
     };
