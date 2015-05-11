@@ -478,7 +478,7 @@ var game = (function(){
             spritesheet.onload = function(){
                 splashInterval = setInterval(renderSplashFrame, 30);
             };
-            spritesheet.src = "spritesheet.high.png";
+            spritesheet.src = "public/spritesheet.high.png";
         }
     }
 }());
