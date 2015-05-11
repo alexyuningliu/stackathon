@@ -126,7 +126,7 @@ var game = (function(){
         context.drawImage(spritesheet,  357, 9, 115, 20, 100, 20, 115, 40);
         
         drawString("Instructions:",{x: 100, y: 90});
-        drawString("space to start, hands to drive",{x: 30, y: 100});
+        drawString("space to start, two fists to drive",{x: 30, y: 100});
         drawString("Credits:",{x: 120, y: 120});
         drawString("mechanism: Alex Liu",{x: 70, y: 130});
         drawString("game, art: Selim Arsever",{x: 55, y: 140});
