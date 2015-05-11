@@ -35,7 +35,7 @@ var game = (function(){
     
     var player = {
         position: 10,
-        speed: 5,
+        speed: 7,
         acceleration: 0.05,
         deceleration: 0.3,
         breaking: 0.6,
