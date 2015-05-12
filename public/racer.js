@@ -115,6 +115,14 @@ var game = (function(){
         $(document).keyup(function(e){
             keys[e.keyCode] = false;
         });
+
+        window.onkeydown = function(e) {
+            if(e.keyCode == 32 && e.target == document.body) {
+                e.preventDefault();
+                return false;
+            }
+        };
+
         generateRoad();
     };
     
@@ -125,8 +133,9 @@ var game = (function(){
         
         context.drawImage(spritesheet,  357, 9, 115, 20, 100, 20, 115, 40);
         
-        drawString("Instructions:",{x: 100, y: 90});
-        drawString("space to start, two fists to drive",{x: 30, y: 100});
+        drawString("Instructions:",{x: 100, y: 80});
+        drawString("press space to start,",{x: 70, y: 90});
+        drawString("use fists to drive",{x: 80, y: 100});
         drawString("Credits:",{x: 120, y: 120});
         drawString("mechanism: Alex Liu",{x: 70, y: 130});
         drawString("game, art: Selim Arsever",{x: 55, y: 140});
@@ -164,10 +173,11 @@ var game = (function(){
         //         player.speed -= player.deceleration;
         //     }
         // }
+
         player.speed = Math.max(player.speed, 0); //cannot go in reverse
         player.speed = Math.min(player.speed, player.maxSpeed); //maximum speed
         player.position += player.speed;
-        
+
         // car turning
         if (keys[37] || turnLeft) {
             // 37 left
@@ -211,7 +221,7 @@ var game = (function(){
             clearInterval(gameInterval);
             drawString("You did it!", {x: 100, y: 20});
             // drawString("Press t to tweet your time.", {x: 30, y: 30});
-            $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
+            // $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
         }
         
         var currentSegmentIndex    = (absoluteIndex - 2) % road.length;
@@ -232,6 +242,24 @@ var game = (function(){
         lastDelta = player.posx - baseOffset*2;
         
         var iter = render.depthOfField;
+
+        // // --------------------------
+        // // --   Update the speed   --
+        // // --------------------------
+
+        // var leftBorderX = (render.width / 2) + -0.5 * render.width * currentScaling + (currentSegment.curve - baseOffset - lastDelta * currentScaling);
+        // var rightBorderX = (render.width / 2) + 0.5 * render.width * currentScaling + (currentSegment.curve - baseOffset - lastDelta * currentScaling);
+
+        // console.log("Left Border x", leftBorderX);
+        // console.log("Right Border x", rightBorderX);
+        // console.log("Car Sprite Position x", carSprite.x);
+
+        // if (carSprite.x < leftBorderX || carSprite.x > rightBorderX) {
+        //     player.speed = 3;
+        // } else {
+        //     player.speed = 7;
+        // }
+        
         while (iter--) {
             // Next Segment:
             var nextSegmentIndex       = (currentSegmentIndex + 1) % road.length;
@@ -280,7 +308,7 @@ var game = (function(){
         while(sprite = spriteBuffer.pop()) {
             drawSprite(sprite);
         }
-        
+
         // --------------------------
         // --     Draw the car     --
         // --------------------------
@@ -307,6 +335,7 @@ var game = (function(){
         drawString(currentTimeString, {x: 1, y: 1});
         var speed = Math.round(player.speed / player.maxSpeed * 200);
         drawString(""+speed+"mph", {x: 1, y: 10});
+
     };
     
     
@@ -367,7 +396,7 @@ var game = (function(){
         context.lineTo(demiWidth + delta2 * render.width * scale1 + offset1, pos1);
         context.fill();
     }
-    
+
     var drawBackground = function(position) {
         var first = position / 2 % (background.w);
         drawImage(background, first-background.w +1, 0, 1);
@@ -393,7 +422,7 @@ var game = (function(){
         
         var transform = "scale(2)";
         $("#racer").css("MozTransform", transform).css("transform", transform).css("WebkitTransform", transform).css({
-            // top: (scale - 1) * render.height / 2,
+            top: 120,
             left: (scale - 1) * render.width / 2 + ($(window).width() - render.width * scale) / 2
         });
     };

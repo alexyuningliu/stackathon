@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		// Every 33 milliseconds copy the video image to the canvas
 		setInterval(function() {
 			if (v.paused || v.ended) return;
-			console.log("New frame!");
+			// console.log("New frame!");
 
 			// con.fillRect(0, 0, w, h);
 			// con.drawImage(v, 0, 0, w, h);
@@ -155,7 +155,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				for (var i = coordsRight.length - 1; i >= 0; --i)
 					if (coordsRight[i][4] > coordRight[4]) coordRight = coordsRight[i];
 
-				console.log("RIGHT hand coordinates are ", Math.floor(coordRight[0]), ", ", Math.floor(coordRight[1]));
+				// console.log("RIGHT hand coordinates are ", Math.floor(coordRight[0]), ", ", Math.floor(coordRight[1]));
 				// If found, push most recent right hand y-position to array
 
 				yPositionArrayRight.shift();
@@ -190,7 +190,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				for (var i = coordsLeft.length - 1; i >= 0; --i)
 					if (coordsLeft[i][4] > coordLeft[4]) coordLeft = coordsLeft[i];
 
-				console.log("LEFT hand coordinates are ", Math.floor(coordLeft[0]), ", ", Math.floor(coordLeft[1]));
+				// console.log("LEFT hand coordinates are ", Math.floor(coordLeft[0]), ", ", Math.floor(coordLeft[1]));
 
 				// If found, push most recent right hand y-position to array
 
@@ -216,7 +216,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 			var yPositionDifference = yPositionArrayLeftAverage - yPositionArrayRightAverage;
 
-			console.log("LEFT-RIGHT AVERAGE DIFFERENCE IS ", (yPositionDifference));
+			// console.log("LEFT-RIGHT AVERAGE DIFFERENCE IS ", (yPositionDifference));
 
 			if (yPositionDifference < -100) {
 				turnLeft = false;
