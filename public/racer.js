@@ -243,22 +243,22 @@ var game = (function(){
         
         var iter = render.depthOfField;
 
-        // // --------------------------
-        // // --   Update the speed   --
-        // // --------------------------
+        // --------------------------
+        // --   Update the speed   --
+        // --------------------------
 
-        // var leftBorderX = (render.width / 2) + -0.5 * render.width * currentScaling + (currentSegment.curve - baseOffset - lastDelta * currentScaling);
-        // var rightBorderX = (render.width / 2) + 0.5 * render.width * currentScaling + (currentSegment.curve - baseOffset - lastDelta * currentScaling);
+        var leftBorderX = (render.width / 2) + -0.5 * render.width * (30 / (render.camera_distance + currentSegmentPosition)) + (currentSegment.curve - baseOffset - lastDelta * (30 / (render.camera_distance + currentSegmentPosition))) - (car.w/2);
+        var rightBorderX = (render.width / 2) + 0.5 * render.width * (30 / (render.camera_distance + currentSegmentPosition)) + (currentSegment.curve - baseOffset - lastDelta * (30 / (render.camera_distance + currentSegmentPosition))) - (car.w/2);
 
-        // console.log("Left Border x", leftBorderX);
-        // console.log("Right Border x", rightBorderX);
-        // console.log("Car Sprite Position x", carSprite.x);
+        console.log("Left Border x", leftBorderX);
+        console.log("Right Border x", rightBorderX);
+        console.log("Car Sprite Position x", carSprite.x);
 
-        // if (carSprite.x < leftBorderX || carSprite.x > rightBorderX) {
-        //     player.speed = 3;
-        // } else {
-        //     player.speed = 7;
-        // }
+        if (carSprite.x < leftBorderX || carSprite.x > rightBorderX) {
+            player.speed = 3;
+        } else {
+            player.speed = 7;
+        }
         
         while (iter--) {
             // Next Segment:
