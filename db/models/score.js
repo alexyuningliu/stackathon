@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
     country: {
         type: String
     },
-    time: {
+    finalTimeInMilliseconds: {
         type: Number
     }
 });

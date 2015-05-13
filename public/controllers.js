@@ -10,10 +10,10 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		console.log("Score submitted!");
 		$http.post('/api/scores', {scoreObject: $scope.scoreObject}).
 		  success(function(data, status, headers, config) {
-		    console.log(data);
+		    console.log("Database updated ", data);
 		  }).
 		  error(function(data, status, headers, config) {
-		    console.log(data);
+		    console.log("Error updating database ", data);
 		  });
 	}
 });

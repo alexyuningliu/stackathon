@@ -8,5 +8,9 @@ var scoreModel = mongoose.model('Score');
 router.post('/', function(req, res) {
 	var scoreObject = req.body.scoreObject;
 	console.log(scoreObject);
-	res.json(scoreObject);
+	var score = new scoreModel(scoreObject);
+	score.save(function(err, score) {
+		if (err) return console.error(err);
+		res.json(score);
+	});
 });
