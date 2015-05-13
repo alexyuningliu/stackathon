@@ -5,16 +5,13 @@ var schema = new mongoose.Schema({
     email: {
         type: String
     },
-    firstName: {
-        type: String
-    },
-    lastName: {
+    name: {
         type: String
     },
     country: {
         type: String
     },
-    score: {
+    time: {
         type: Number
     }
 });
