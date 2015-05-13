@@ -1,5 +1,3 @@
-var exportedFinalTimeInMilliseconds;
-
 var game = (function(){
     
     var r = Math.random;
@@ -13,6 +11,7 @@ var game = (function(){
     var startTime;
     var lastDelta = 0;
     var currentTimeString = "";
+    var finalTimeInMilliseconds;
     
     var roadParam = {
         maxHeight: 900,
@@ -222,6 +221,14 @@ var game = (function(){
         if(absoluteIndex >= roadParam.length-render.depthOfField-1){
             clearInterval(gameInterval);
             drawString("You did it!", {x: 100, y: 20});
+
+            // Update the angular controller scope
+            var scope = angular.element($('body')).scope();
+            scope.$apply(function(){
+                scope.scoreObject.finalTimeInMilliseconds = finalTimeInMilliseconds;
+            })
+
+            // Trigger modal
             $('#myModal').modal();
             // drawString("Press t to tweet your time.", {x: 30, y: 30});
             // $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
@@ -330,7 +337,7 @@ var game = (function(){
         if(mili < 10) mili = "0" + mili;
         
         currentTimeString = ""+min+":"+sec+":"+mili;
-        exportedFinalTimeInMilliseconds = mili + (1000 * sec) + (60000 * min);
+        finalTimeInMilliseconds = mili + (1000 * sec) + (60000 * min);
 
         drawString(currentTimeString, {x: 1, y: 1});
         var speed = Math.round(player.speed / player.maxSpeed * 200);

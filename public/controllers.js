@@ -5,7 +5,6 @@ var driveApp = angular.module('driveApp', []);
 driveApp.controller('DriveCtrl', function ($scope, $http) {
 
 	$scope.scoreObject = {};
-	$scope.exportedFinalTimeInMilliseconds = exportedFinalTimeInMilliseconds;
 
 	$scope.submitScore = function() {
 		console.log("Score submitted!");
