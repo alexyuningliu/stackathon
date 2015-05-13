@@ -1,4 +1,5 @@
-var currentTimeString = "";
+var exportedFinalTimeInMilliseconds;
+
 var game = (function(){
     
     var r = Math.random;
@@ -11,6 +12,7 @@ var game = (function(){
     var keys = [];
     var startTime;
     var lastDelta = 0;
+    var currentTimeString = "";
     
     var roadParam = {
         maxHeight: 900,
@@ -328,7 +330,8 @@ var game = (function(){
         if(mili < 10) mili = "0" + mili;
         
         currentTimeString = ""+min+":"+sec+":"+mili;
-        
+        exportedFinalTimeInMilliseconds = mili + (1000 * sec) + (60000 * min);
+
         drawString(currentTimeString, {x: 1, y: 1});
         var speed = Math.round(player.speed / player.maxSpeed * 200);
         drawString(""+speed+"mph", {x: 1, y: 10});
