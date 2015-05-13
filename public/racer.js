@@ -1,3 +1,4 @@
+var currentTimeString = "";
 var game = (function(){
     
     var r = Math.random;
@@ -10,12 +11,11 @@ var game = (function(){
     var keys = [];
     var startTime;
     var lastDelta = 0;
-    var currentTimeString = "";
     
     var roadParam = {
         maxHeight: 900,
         maxCurve:  400,
-        length:    12,
+        length:    1,
         curvy:     0.8,
         mountainy: 0.8,
         zoneSize:  250
@@ -220,6 +220,7 @@ var game = (function(){
         if(absoluteIndex >= roadParam.length-render.depthOfField-1){
             clearInterval(gameInterval);
             drawString("You did it!", {x: 100, y: 20});
+            $('#myModal').modal();
             // drawString("Press t to tweet your time.", {x: 30, y: 30});
             // $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
         }
