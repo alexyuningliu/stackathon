@@ -18,3 +18,19 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 	}
 });
 
+driveApp.filter('toFormattedTimeString', function() {
+	return function(finalTimeInMilliseconds) {
+		console.log(finalTimeInMilliseconds);
+		var min = Math.floor(finalTimeInMilliseconds / 60000);
+		
+		var sec = Math.floor((finalTimeInMilliseconds - min * 60000) / 1000); 
+		if(sec < 10) sec = "0" + sec;
+		
+		var mili = Math.floor(finalTimeInMilliseconds - min * 60000 - sec * 1000);
+		if(mili < 100) mili = "0" + mili;
+		if(mili < 10) mili = "0" + mili;
+		
+		var formattedTimeString = ""+min+":"+sec+":"+mili;
+		return formattedTimeString;
+	};
+})
