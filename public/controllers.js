@@ -11,16 +11,17 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		$http.post('/api/scores', {scoreObject: $scope.scoreObject}).
 		  success(function(data, status, headers, config) {
 		    console.log("Database updated ", data);
+		    $('#myModal').modal('hide');
 		  }).
 		  error(function(data, status, headers, config) {
 		    console.log("Error updating database ", data);
+		    $('#myModal').modal('hide');
 		  });
 	}
 });
 
 driveApp.filter('toFormattedTimeString', function() {
 	return function(finalTimeInMilliseconds) {
-		console.log(finalTimeInMilliseconds);
 		var min = Math.floor(finalTimeInMilliseconds / 60000);
 		
 		var sec = Math.floor((finalTimeInMilliseconds - min * 60000) / 1000); 

@@ -16,7 +16,7 @@ var game = (function(){
     var roadParam = {
         maxHeight: 900,
         maxCurve:  400,
-        length:    14,
+        length:    2,
         curvy:     0.95,
         mountainy: 0.9,
         zoneSize:  150
