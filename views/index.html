@@ -44,11 +44,13 @@
 	<div id='z1'>
 		<video id='v'></video>	
 		<canvas id='cLeft' style='float:left;'></canvas>
-<!-- 		<canvas id='c'></canvas> -->
 		<canvas id='cRight' style='float:right;'></canvas>
 		<canvas id='cLeftHidden' class="hidden"></canvas>
 		<canvas id='cRightHidden' class="hidden"></canvas>
 	</div>
+
+	<!-- Audio -->
+	<audio id="gamemusic" src="public/gamemusic.mp3" preload="auto"></audio>
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -57,7 +59,7 @@
 	    <form ng-submit="submitScore()">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Thanks for playing! Submit score?</h4>
+	        <h4 class="modal-title" id="myModalLabel">Your time was {{scoreObject.finalTimeInMilliseconds}}</h4>
 	      </div>
 	      <div class="modal-body">
 	          <div class="form-group">

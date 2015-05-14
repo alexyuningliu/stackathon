@@ -16,10 +16,10 @@ var game = (function(){
     var roadParam = {
         maxHeight: 900,
         maxCurve:  400,
-        length:    15,
-        curvy:     0.8,
-        mountainy: 0.8,
-        zoneSize:  250
+        length:    14,
+        curvy:     0.95,
+        mountainy: 0.9,
+        zoneSize:  150
     }
         
     var road = [];
@@ -143,6 +143,7 @@ var game = (function(){
         drawString("font: spicypixel.net",{x: 70, y: 150});
         if(keys[32]){
             clearInterval(splashInterval);
+            document.getElementById('gamemusic').play();
             gameInterval = setInterval(renderGameFrame, 30);
             startTime= new Date();
         }
