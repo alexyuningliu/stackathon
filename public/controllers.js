@@ -74,3 +74,26 @@ driveApp.filter('toFormattedTimeString', function() {
 		return formattedTimeString;
 	};
 })
+
+driveApp.filter('differenceFromLastHighScore', function() {
+	return function(newFinalTimeInMilliseconds, scope) {
+		if (scope.highScores) {
+
+			var differenceInTime =  newFinalTimeInMilliseconds - scope.highScores[scope.highScores.length - 1].finalTimeInMilliseconds
+
+			var min = Math.floor(differenceInTime / 60000);
+			
+			var sec = Math.floor((differenceInTime - min * 60000) / 1000); 
+			if(sec < 10) sec = "0" + sec;
+			
+			var mili = Math.floor(differenceInTime - min * 60000 - sec * 1000);
+			if(mili < 100) mili = "0" + mili;
+			if(mili < 10) mili = "0" + mili;
+			
+			var formattedTimeString = ""+min+":"+sec+":"+mili;
+			return formattedTimeString;
+		} else {
+			return newFinalTimeInMilliseconds;
+		}
+	};
+})
