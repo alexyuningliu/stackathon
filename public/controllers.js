@@ -24,7 +24,7 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 
 	$scope.checkForHighScore = function(callback) {
 		console.log("Checking if you have a high score");
-		if ($scope.highScores.length < 10) {
+		if ($scope.highScores.length < 3) {
 			console.log("You have a high score!");
 			$scope.hasHighScore = true;
 			callback(null, 'two');

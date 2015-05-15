@@ -6,7 +6,7 @@ module.exports = router;
 var scoreModel = mongoose.model('Score');
 
 router.get('/high', function(req, res) {
-	scoreModel.find().sort('finalTimeInMilliseconds').limit(10).exec(function (err, highScores) {
+	scoreModel.find().sort('finalTimeInMilliseconds').limit(3).exec(function (err, highScores) {
 		  		if (err) return console.error(err);
 		  		console.log(highScores);
 		  		res.send(highScores);
