@@ -229,11 +229,27 @@ var game = (function(){
                 scope.scoreObject.finalTimeInMilliseconds = finalTimeInMilliseconds;
             });
 
-            // Check high score
-            angular.element($('body')).scope().getHighScores();
+            // angular.element($('body')).scope().getHighScores();
 
-            // Trigger modal
-            $('#myModal').modal();
+            // angular.element($('body')).scope().checkForHighScore();
+
+            async.series([
+                function(callback){
+                    angular.element($('body')).scope().getHighScores(callback);
+                },
+                function(callback){
+                    // Check for high score
+                    angular.element($('body')).scope().checkForHighScore(callback);
+                },
+                function(callback){
+                    // Trigger modal
+                    $('#myModal').modal();
+                    callback(null, 'three');
+                }
+            ]);
+
+            // $('#myModal').modal();
+
             // drawString("Press t to tweet your time.", {x: 30, y: 30});
             // $(window).keydown(function(e){ if(e.keyCode == 84) {location.href="http://twitter.com/home?status="+escape("I've just raced through #racer10k in "+currentTimeString+"!")}});
         }

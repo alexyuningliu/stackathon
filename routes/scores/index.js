@@ -9,7 +9,7 @@ router.get('/high', function(req, res) {
 	scoreModel.find().sort('finalTimeInMilliseconds').limit(10).exec(function (err, highScores) {
 		  		if (err) return console.error(err);
 		  		console.log(highScores);
-		  		res.json(highScores);
+		  		res.send(highScores);
 	});
 })
 
