@@ -53,6 +53,10 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		    setTimeout(window.location.reload.bind(window.location), 1000);
 		  });
 	}
+
+	$scope.playAgain = function() {
+		setTimeout(window.location.reload.bind(window.location), 500);
+	}
 });
 
 driveApp.filter('toFormattedTimeString', function() {
