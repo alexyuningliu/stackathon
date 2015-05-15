@@ -24,7 +24,7 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 
 	$scope.checkForHighScore = function(callback) {
 		console.log("Checking if you have a high score");
-		if ($scope.highScores.length < 3) {
+		if ($scope.highScores.length < 5) {
 			console.log("You have a high score!");
 			$scope.hasHighScore = true;
 			callback(null, 'two');
@@ -45,17 +45,21 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		  success(function(data, status, headers, config) {
 		    console.log("Database updated ", data);
 		    $('#myModal').modal('hide');
-		    setTimeout(window.location.reload.bind(window.location), 1000);
+		    $('#thankYouModal').modal('show'); 
+		    setTimeout(window.location.reload.bind(window.location), 2500);
 		  }).
 		  error(function(data, status, headers, config) {
 		    console.log("Error updating database ", data);
 		    $('#myModal').modal('hide');
-		    setTimeout(window.location.reload.bind(window.location), 1000);
+		    $('#thankYouModal').modal('show');
+		    setTimeout(window.location.reload.bind(window.location), 2500);
 		  });
 	}
 
 	$scope.playAgain = function() {
-		setTimeout(window.location.reload.bind(window.location), 500);
+		$('#myModal').modal('hide');
+		$('#thankYouModal').modal('show');
+		setTimeout(window.location.reload.bind(window.location), 2500);
 	}
 });
 

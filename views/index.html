@@ -67,7 +67,7 @@
 	<!-- Audio -->
 	<audio id="gamemusic" src="public/gamemusic.mp3" preload="auto"></audio>
 
-	<!-- Modal -->
+	<!-- Game Over Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -83,7 +83,7 @@
 	      			<span class="text-danger" ng-hide="hasHighScore">{{scoreObject.finalTimeInMilliseconds | toFormattedTimeString}}</span>.
 	      		</h3>
 	      		<p class="text-center" ng-hide="hasHighScore">
-	      			You need to improve by <span class="text-danger">{{scoreObject.finalTimeInMilliseconds | differenceFromLastHighScore:this}}</span>.
+	      			You need to improve by <span class="text-danger">{{scoreObject.finalTimeInMilliseconds | differenceFromLastHighScore:this}}</span> to get a high score.
 	      		</p>
 	      		<h4>Current best times</h4>
 	      		<table class="table table-striped">
@@ -123,6 +123,20 @@
 	        <button type="submit" class="btn btn-success" ng-show="hasHighScore">Submit Score</button>
 	      </div>
 	    </form>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Thank You Modal -->
+	<div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="thankYouModalLabel">Thanks for playing!</h4>
+	      </div>
+	      <div class="modal-body">
+	        Refreshing the page to load a new game - please wait :).
+	      </div>
 	    </div>
 	  </div>
 	</div>
