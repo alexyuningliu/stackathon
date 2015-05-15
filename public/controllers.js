@@ -12,10 +12,12 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		  success(function(data, status, headers, config) {
 		    console.log("Database updated ", data);
 		    $('#myModal').modal('hide');
+		    setTimeout(window.location.reload.bind(window.location), 1000);
 		  }).
 		  error(function(data, status, headers, config) {
 		    console.log("Error updating database ", data);
 		    $('#myModal').modal('hide');
+		    setTimeout(window.location.reload.bind(window.location), 1000);
 		  });
 	}
 });
