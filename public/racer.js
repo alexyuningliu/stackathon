@@ -227,7 +227,10 @@ var game = (function(){
             var scope = angular.element($('body')).scope();
             scope.$apply(function(){
                 scope.scoreObject.finalTimeInMilliseconds = finalTimeInMilliseconds;
-            })
+            });
+
+            // Check high score
+            angular.element($('body')).scope().getHighScores();
 
             // Trigger modal
             $('#myModal').modal();

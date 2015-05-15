@@ -13,6 +13,9 @@ var schema = new mongoose.Schema({
     },
     finalTimeInMilliseconds: {
         type: Number
+    },
+    createdAt: {
+        type: Date 
     }
 });
 

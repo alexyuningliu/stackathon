@@ -5,6 +5,14 @@ module.exports = router;
 
 var scoreModel = mongoose.model('Score');
 
+router.get('/high', function(req, res) {
+	scoreModel.find().sort('finalTimeInMilliseconds').limit(10).exec(function (err, highScores) {
+		  		if (err) return console.error(err);
+		  		console.log(highScores);
+		  		res.json(highScores);
+	});
+})
+
 router.post('/', function(req, res) {
 	var scoreObject = req.body.scoreObject;
 	console.log(scoreObject);

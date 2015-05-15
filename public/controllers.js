@@ -5,6 +5,19 @@ var driveApp = angular.module('driveApp', []);
 driveApp.controller('DriveCtrl', function ($scope, $http) {
 
 	$scope.scoreObject = {};
+	$scope.highScores = {};
+	$scope.hasHighScore = false;
+
+	$scope.getHighScores = function() {
+		console.log("Checking high scores");
+		$http.get('/api/scores/high').
+			success(function(data, status, headers, config) {
+			  console.log("High scores retrieved ", data);
+			}).
+			error(function(data, status, headers, config) {
+			  console.log("Error retrieving high scores ", data);
+			});
+	}
 
 	$scope.submitScore = function() {
 		console.log("Score submitted!");
