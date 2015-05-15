@@ -8,6 +8,10 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 	$scope.highScores;
 	$scope.hasHighScore = false;
 
+	$scope.start = function() {
+		$('#instructionsModal').modal('hide');
+	}
+
 	$scope.getHighScores = function(callback) {
 		console.log("Checking high scores");
 		$http.get('/api/scores/high').

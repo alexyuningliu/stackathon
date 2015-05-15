@@ -540,4 +540,5 @@ var game = (function(){
 }());
 $(function(){
     game.start();
+    $('#instructionsModal').modal('show');
 });

@@ -67,6 +67,41 @@
 	<!-- Audio -->
 	<audio id="gamemusic" src="public/gamemusic.mp3" preload="auto"></audio>
 
+	<!-- Instructions Modal -->
+	<!-- Thank You Modal -->
+	<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="instructionsModalLabel">Hello!</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Welcome to <b>yudrive</b>, a next-generation online driving game. Your goal is to finish the course as fast as possible.</p> 
+
+	        <p>In yudrive, you don't need any special equipment or a keyboard - all you need is a webcam. The game uses advanced image recognition to detect your fists, and you can drive by moving your right and left fists relative to each other.</p>
+
+	        <h4>Instructions</h4>
+	        <ol>
+	        	<li>Allow the browser to access your camera</li>
+	        	<li>Drive by moving your left and right fists up-and-down relative to each other</li>
+	        	<img style="width: 500px;" src='public/yudriveinstructions.png'></img>
+	        	<li>Press the space bar and raise your fists to start the game!</li>
+	        </ol>
+
+	        <h4>Additional information</h4>
+	        <ul>
+	        	<li>Hitting the sand will slow you down and result in a slower time.</li>
+	        	<li>The blue squares mean that the camera has recorded the position of your fist.</li>
+	        	<li>Keep your fists 2-3 feet behind the webcam - they optimally should take up around 1/9th of the screen.</li>
+	        </ul>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary" ng-click="start()">Did you allow the camera? Let's go!</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 	<!-- Game Over Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
