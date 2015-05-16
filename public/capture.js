@@ -230,7 +230,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				turnRight = false;
 			}
 
-			if (yPositionArrayRight.avg() > 100 && yPositionArrayRight.avg() < 300 && yPositionArrayLeft.avg() > 100 && yPositionArrayLeft.avg() < 300) {
+			if (yPositionArrayRight.avg() > 100 && yPositionArrayRight.avg() < 200 && yPositionArrayLeft.avg() > 100 && yPositionArrayLeft.avg() < 200) {
 				// console.log("READY POSITION ACHIEVED");
 				readyPosition = true;
 			}

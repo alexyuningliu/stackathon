@@ -23,7 +23,7 @@ var game = (function(){
     }
         
     var road = [];
-    var roadSegmentSize = 5;
+    var roadSegmentSize = 4.4;
     var numberOfSegmentPerColor = 4;
     
     var render = {
