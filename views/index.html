@@ -140,7 +140,7 @@
 		      <div class="modal-body">
 	    			<div class="form-group">
 	    				<label for="name" class="control-label">Name:</label>
-	    				<input type="text" name="name" class="form-control" id="name" ng-model="scoreObject.name" required>
+	    				<input type="text" name="name" class="form-control" id="name" ng-model="scoreObject.name" ng-minlength="4" required>
 	    			</div>
 	    			<div class="form-group">
 	    				<label for="country" class="control-label">Country:</label>
@@ -148,7 +148,7 @@
 	    			</div>
 		      </div>
 		      <div class="modal-footer">
-		      		<button type="submit" class="btn btn-success" ng-disabled="registrationForm.name.$error.required || registrationForm.country.$error.required" ng-click="toGame()">Let's get started!</button>
+		      		<button type="submit" class="btn btn-success" ng-disabled="registrationForm.name.$error.required || registrationForm.country.$error.required || registrationForm.name.$error.minlength" ng-click="toGame()">Let's get started!</button>
 		      </div>
           </form>
 	    </div>
