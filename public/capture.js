@@ -231,7 +231,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 
 			if (yPositionArrayRight.avg() > 100 && yPositionArrayRight.avg() < 300 && yPositionArrayLeft.avg() > 100 && yPositionArrayLeft.avg() < 300) {
-				console.log("READY POSITION ACHIEVED");
+				// console.log("READY POSITION ACHIEVED");
 				readyPosition = true;
 			}
 
