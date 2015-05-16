@@ -8,8 +8,13 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 	$scope.highScores;
 	$scope.hasHighScore = false;
 
-	$scope.start = function() {
+	$scope.toRegistration = function() {
 		$('#instructionsModal').modal('hide');
+		$('#registrationModal').modal('show');
+	}
+
+	$scope.toGame = function() {
+		$('#registrationModal').modal('hide');
 	}
 
 	$scope.getHighScores = function(callback) {
@@ -43,20 +48,14 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 		}
 	}
 
-	$scope.submitScore = function() {
-		console.log("Score submitted!");
+	$scope.submitInfo = function() {
+		console.log("Info submitted!");
 		$http.post('/api/scores', {scoreObject: $scope.scoreObject}).
 		  success(function(data, status, headers, config) {
 		    console.log("Database updated ", data);
-		    $('#myModal').modal('hide');
-		    $('#thankYouModal').modal('show'); 
-		    setTimeout(window.location.reload.bind(window.location), 2500);
 		  }).
 		  error(function(data, status, headers, config) {
 		    console.log("Error updating database ", data);
-		    $('#myModal').modal('hide');
-		    $('#thankYouModal').modal('show');
-		    setTimeout(window.location.reload.bind(window.location), 2500);
 		  });
 	}
 

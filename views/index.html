@@ -97,7 +97,6 @@
 	<audio id="gamemusic" src="public/gamemusic.mp3" preload="auto"></audio>
 
 	<!-- Instructions Modal -->
-	<!-- Thank You Modal -->
 	<div class="modal fade" id="instructionsModal" tabindex="-1" role="dialog" aria-labelledby="instructionsModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -114,7 +113,6 @@
 	        	<li>Allow the browser to access your camera</li>
 	        	<li>Drive by moving your left and right fists up-and-down relative to each other</li>
 	        	<img style="width: 500px;" src='public/yudriveinstructions.png'></img>
-	        	<li>Press the space bar and raise your fists to start the game!</li>
 	        </ol>
 
 	        <h4>Additional information</h4>
@@ -125,8 +123,34 @@
 	        </ul>
 	      </div>
 	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-primary" ng-click="start()">Did you allow the camera? Let's go!</button>
+	      	<button type="button" class="btn btn-primary" ng-click="toRegistration()">I know what I'm doing now</button>
 	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Registration Modal -->
+	<div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <form name="registrationForm" novalidate>
+		      <div class="modal-header">
+		        <h4 class="modal-title" id="registrationModalLabel">Quick registration</h4>
+		      </div>
+		      <div class="modal-body">
+	    			<div class="form-group">
+	    				<label for="name" class="control-label">Name:</label>
+	    				<input type="text" name="name" class="form-control" id="name" ng-model="scoreObject.name" required>
+	    			</div>
+	    			<div class="form-group">
+	    				<label for="country" class="control-label">Country:</label>
+	    				<input type="text" name="country" class="form-control" id="country" ng-model="scoreObject.country" required>
+	    			</div>
+		      </div>
+		      <div class="modal-footer">
+		      		<button type="submit" class="btn btn-success" ng-disabled="registrationForm.name.$error.required || registrationForm.country.$error.required" ng-click="toGame()">Let's get started!</button>
+		      </div>
+          </form>
 	    </div>
 	  </div>
 	</div>
@@ -135,7 +159,6 @@
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	    <form ng-submit="submitScore()">
 	      <div class="modal-header">
 	        <h4 class="modal-title text-success" id="myModalLabel" ng-show="hasHighScore">Nice work, you got a high score!</h4>
 	        <h4 class="modal-title" id="myModalLabel" ng-hide="hasHighScore">No high score, try again.</h4>
@@ -144,12 +167,15 @@
 	      	<div>
 	      		<h3 class="text-center">Your time was 
 	      			<span class="text-success" ng-show="hasHighScore">{{scoreObject.finalTimeInMilliseconds | toFormattedTimeString}}</span>
-	      			<span class="text-danger" ng-hide="hasHighScore">{{scoreObject.finalTimeInMilliseconds | toFormattedTimeString}}</span>.
+	      			<span class="text-danger" ng-hide="hasHighScore">{{scoreObject.finalTimeInMilliseconds | toFormattedTimeString}}</span>
 	      		</h3>
 	      		<p class="text-center" ng-hide="hasHighScore">
 	      			You need to improve by <span class="text-danger">{{scoreObject.finalTimeInMilliseconds | differenceFromLastHighScore:this}}</span> to get a high score.
 	      		</p>
-	      		<h4>Current best times</h4>
+	      		<p class="text-center" ng-show="hasHighScore">
+	      			It has been submitted :).
+	      		</p>
+	      		<h4>Previous best times</h4>
 	      		<table class="table table-striped">
 	      			<tr>
 	      				<th>Name</th>
@@ -163,30 +189,10 @@
 		      		</tr>
 	      		</table>
 	      	</div>
-	      	<div ng-show="hasHighScore">
-	      		<h4>Submit your high score for the record books!</h4>
-				<div class="form-group">
-					<label for="name" class="control-label">Name:</label>
-					<input type="text" class="form-control" id="name" ng-model="scoreObject.name" required>
-				</div>
-				<div class="form-group">
-					<label for="country" class="control-label">Country:</label>
-					<input type="text" class="form-control" id="country" ng-model="scoreObject.country" required></input>
-				</div>
-				<div class="form-group">
-					<label for="e-mail" class="control-label">E-mail (optional):</label>
-					<input type="text" class="form-control" id="email" ng-model="scoreObject.email"></input>
-				</div>
-	      	</div>
-	      	<div ng-hide="hasHighScore">
-
-	      	</div>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" ng-click="playAgain()">Try Again</button>
-	        <button type="submit" class="btn btn-success" ng-show="hasHighScore">Submit Score</button>
+	        <button type="button" class="btn btn-primary" ng-click="playAgain()">Play Again</button>
 	      </div>
-	    </form>
 	    </div>
 	  </div>
 	</div>

@@ -1,6 +1,7 @@
 // Expose turning variables to racer.js
 var turnLeft = false;
 var turnRight = false;
+var readyPosition = false;
 
 window.addEventListener('DOMContentLoaded', function() {
 	var isStreaming = false,
@@ -227,6 +228,11 @@ window.addEventListener('DOMContentLoaded', function() {
 			} else {
 				turnLeft = false;
 				turnRight = false;
+			}
+
+			if (yPositionArrayRight.avg() > 100 && yPositionArrayRight.avg() < 300 && yPositionArrayLeft.avg() > 100 && yPositionArrayLeft.avg() < 300) {
+				console.log("READY POSITION ACHIEVED");
+				readyPosition = true;
 			}
 
 		}, 100);
