@@ -1,4 +1,5 @@
 'use strict';
+var gameReady = false;
 
 var driveApp = angular.module('driveApp', []);
 
@@ -15,6 +16,7 @@ driveApp.controller('DriveCtrl', function ($scope, $http) {
 
 	$scope.toGame = function() {
 		$('#registrationModal').modal('hide');
+		setTimeout(function() {gameReady = true}, 2000);
 	}
 
 	$scope.getHighScores = function(callback) {

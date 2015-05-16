@@ -140,7 +140,7 @@ var game = (function(){
         drawString("mechanism: Alex Liu",{x: 70, y: 130});
         drawString("game, art: Selim Arsever",{x: 55, y: 140});
         drawString("font: spicypixel.net",{x: 70, y: 150});
-        if(readyPosition){
+        if(readyPosition && gameReady){
             clearInterval(splashInterval);
             document.getElementById('gamemusic').play();
             gameInterval = setInterval(renderGameFrame, 30);
