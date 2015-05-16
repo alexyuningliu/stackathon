@@ -135,13 +135,12 @@ var game = (function(){
         context.drawImage(spritesheet,  357, 9, 115, 20, 100, 20, 115, 40);
         
         drawString("Instructions:",{x: 100, y: 80});
-        drawString("press space to start,",{x: 70, y: 90});
-        drawString("use fists to drive",{x: 80, y: 100});
+        drawString("Raise both fists to start",{x: 50, y: 100});
         drawString("Credits:",{x: 120, y: 120});
         drawString("mechanism: Alex Liu",{x: 70, y: 130});
         drawString("game, art: Selim Arsever",{x: 55, y: 140});
         drawString("font: spicypixel.net",{x: 70, y: 150});
-        if(keys[32]){
+        if(readyPosition){
             clearInterval(splashInterval);
             document.getElementById('gamemusic').play();
             gameInterval = setInterval(renderGameFrame, 30);
@@ -227,6 +226,7 @@ var game = (function(){
             var scope = angular.element($('body')).scope();
             scope.$apply(function(){
                 scope.scoreObject.finalTimeInMilliseconds = finalTimeInMilliseconds;
+                scope.scoreObject.createdAt = new Date().toISOString();
             });
 
             // angular.element($('body')).scope().getHighScores();
@@ -244,6 +244,7 @@ var game = (function(){
                 function(callback){
                     // Trigger modal
                     $('#myModal').modal();
+                    angular.element($('body')).scope().submitInfo();
                     callback(null, 'three');
                 }
             ]);
